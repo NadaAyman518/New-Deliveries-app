@@ -62,16 +62,16 @@ def process_file(uploaded_file, sheet_name=None):
     """Process uploaded files with error handling and memory management"""
     if uploaded_file is None:
         return None
-    file_bytes = uploaded_file.getvalue()
+    # file_bytes = uploaded_file.getvalue()
     try:
         # Read file based on extension
         if uploaded_file.name.endswith('.csv'):
-            df = pd.read_csv(io.BytesIO(file_bytes))
+            df = pd.read_csv(uploaded_file)
         elif uploaded_file.name.endswith(('.xlsx', '.xls')):
             if sheet_name:
-                df = read_excel_sheet_func(io.BytesIO(file_bytes), sheet=sheet_name)
+                df = read_excel_sheet_func(uploaded_file, sheet=sheet_name)
             else:
-                df = read_new_function(io.BytesIO(file_bytes))
+                df = read_new_function(uploaded_file)
         else:
             st.error("Unsupported file format")
             return None
