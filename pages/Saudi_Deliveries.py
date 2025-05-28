@@ -7,10 +7,11 @@ from dateutil import relativedelta
 from dateutil.relativedelta import relativedelta
 
 from myproject.functions import Deliveryformatting # Assuming you have a DeliveryConfig class
-
+import io
 from myproject.processingfunctions import *
 
 from auth import check_auth, authenticator
+import io
 
 # Must be first
 st.set_page_config(
@@ -30,13 +31,9 @@ authenticator.logout(key="Logout", location="sidebar")
 def clear_results():
     if "extraction" in st.session_state or "old_file" in st.session_state:
         keys_to_delete = ['new_df', 'final_old_df', 'raw_old_df']
-                for key in keys_to_delete:
-                    if key in st.session_state:
-                        del st.session_state[key]
-    # keys_to_delete = ['new_df', 'final_old_df', 'raw_old_df']
-    # for key in keys_to_delete:
-    #     if key in st.session_state:
-    #         del st.session_state[key]
+        for key in keys_to_delete:
+            if key in st.session_state:
+                del st.session_state[key]
 
 def inject_session_dates(filters):
     for f in filters:
@@ -61,13 +58,39 @@ def load_config():
 #     'ticker_isin_null': ticker_isin_null,
 #     "market_cap": market_cap}
 
+def process_file(uploaded_file, sheet_name=None):
+    """Process uploaded files with error handling and memory management"""
+    if uploaded_file is None:
+        return None
+    file_bytes = uploaded_file.getvalue()
+    try:
+        # Read file based on extension
+        if uploaded_file.name.endswith('.csv'):
+            df = pd.read_csv(io.BytesIO(file_bytes))
+        elif uploaded_file.name.endswith(('.xlsx', '.xls')):
+            if sheet_name:
+                df = read_excel_sheet_func(io.BytesIO(file_bytes), sheet=sheet_name)
+            else:
+                df = read_new_function(io.BytesIO(file_bytes))
+        else:
+            st.error("Unsupported file format")
+            return None
+
+        # Clean the dataframe
+        df.fillna("", inplace=True)
+        df.columns = df.columns.str.strip()
+        if 'Name' in df.columns:
+            df['Name'] = df['Name'].str.strip()
+
+        return df
+
+    except Exception as e:
+        st.error(f"Error processing {uploaded_file.name}: {str(e)}")
+        return None
+
+
 # Main logic for file uploads and previews
 def main_logic():
-    # st.set_page_config(
-    #     page_title="Saudi Deliveries",
-    #     layout="wide",
-    #     initial_sidebar_state="auto"
-    # )
 
     st.title("Saudi Deliveries")
     st.write("Upload the extraction file and apply processing functions.")
@@ -176,9 +199,10 @@ def main_logic():
     st.session_state.extract = extraction
 
     if extraction:
-        new_df = read_new_function(extraction)
-        new_df.fillna("", inplace=True)
-        new_df.columns = new_df.columns.str.strip()
+        # new_df = read_new_function(extraction)
+        # new_df.fillna("", inplace=True)
+        # new_df.columns = new_df.columns.str.strip()
+        new_df = process_file(extraction)
         date_current_price = Finders.date_current_price_finder(new_df)
         new_df = new_df.rename(columns={date_current_price: 'Date Of Current Price'})
         new_df['Name'] = new_df['Name'].str.strip()
@@ -187,14 +211,16 @@ def main_logic():
         st.dataframe(new_df)
 
     if old_file and delivery_name not in ['AlBilad', 'Saudi Fransi']:
-        old_df = read_excel_sheet_func(old_file, 'Final')
+        # old_df = read_excel_sheet_func(old_file, 'Final')
+        old_df = process_file(old_file, 'Final')
         old_df.fillna("", inplace=True)
         st.session_state.old_df = old_df
         st.write("### Old File Preview")
         st.dataframe(old_df)
 
     if delivery_name not in ['Saudi Fransi']:
-        raw_old_df = read_excel_sheet_func(old_file, 'Universe')
+        # raw_old_df = read_excel_sheet_func(old_file, 'Universe')
+        raw_old_df = process_file(old_file, 'Universe')
         raw_old_df.fillna("", inplace=True)
         st.session_state.raw_old_df = raw_old_df
         st.write("### Raw Old File Preview")
@@ -525,3 +551,4 @@ def main_logic():
 # Run the app
 if __name__ == "__main__":
     main_logic()
+
