@@ -96,22 +96,42 @@ def save_config(config: Dict) -> bool:
             )
             s3.delete_object(Bucket=S3_BUCKET, Key=temp_key)
         else:
-            # Local file with atomic write pattern
-            temp_path = f"{CONFIG_FILE}.tmp"
-            with open(temp_path, 'w') as f:
-                json.dump(config, f, indent=2)
+            # In Streamlit Cloud, we need to use a special directory
+            config_dir = "/tmp/config"  # Use tmp directory which has write permissions
+            os.makedirs(config_dir, exist_ok=True)
 
-            # Atomic rename (works on Windows)
-            if os.path.exists(CONFIG_FILE):
-                os.remove(CONFIG_FILE)
-            os.rename(temp_path, CONFIG_FILE)
+            temp_path = os.path.join(config_dir, f"{CONFIG_FILE}.tmp")
+            final_path = os.path.join(config_dir, CONFIG_FILE)
 
-        load_config.clear()  # Clear cache
-        return True
+            try:
+                with open(temp_path, 'w') as f:
+                    json.dump(config, f, indent=2)
+
+                # Atomic replace
+                if os.path.exists(final_path):
+                    os.remove(final_path)
+                os.rename(temp_path, final_path)
+
+                st.write(f"Config saved to {final_path}")  # Debug output
+                return True
+            except Exception as e:
+                st.error(f"Local save failed: {str(e)}")
+                return False
+    #         # Local file with atomic write pattern
+    #         temp_path = f"{CONFIG_FILE}.tmp"
+    #         with open(temp_path, 'w') as f:
+    #             json.dump(config, f, indent=2)
+    #
+    #         # Atomic rename (works on Windows)
+    #         if os.path.exists(CONFIG_FILE):
+    #             os.remove(CONFIG_FILE)
+    #         os.rename(temp_path, CONFIG_FILE)
+    #
+    #     load_config.clear()  # Clear cache
+    #     return True
     except Exception as e:
         logger.error(f"Failed to save configuration: {str(e)}")
         return False
-
 # Validation Functions
 def validate_delivery_name(name: str) -> bool:
     """Validate delivery name format"""
