@@ -1,0 +1,1033 @@
+{
+  "deliveries": [
+    {
+      "name": "Riyad Capital",
+      "input_files": 2,
+      "pre_processing": [
+        {
+          "function": "ric_code"
+        },
+        {
+          "function": "replace",
+          "params": {
+            "to_replace": "N/A",
+            "value": ""
+          }
+        }
+      ],
+      "filters": [
+        {
+          "function": "market_cap",
+          "args": {
+            "Market Cap": 5000000
+          }
+        },
+        {
+          "function": "issue_active_status_except_reits",
+          "args": {}
+        },
+        {
+          "function": "ticker_isin_null",
+          "args": {}
+        },
+        {
+          "function": "isin_null",
+          "args": {}
+        },
+        {
+          "function": "passing_reits_filter",
+          "args": {}
+        },
+        {
+          "function": "date_of_current_price_except_reits",
+          "args": {
+            "Date Of Current Price": null
+          }
+        },
+        {
+          "function": "period_end_date_except_reits",
+          "args": {
+            "Period End Date": null
+          }
+        }
+      ],
+      "output_files": [
+        {
+          "filename_pattern": "Shariah_List_01{next_month}{year}",
+          "output_columns": {
+            "Shariah_List_01{next_month}{year}": [
+              "ISIN",
+              "SEDOL",
+              "RIC Code",
+              "Weight",
+              "Date",
+              "Code"
+            ],
+            "defaults": {
+              "Weight": "1",
+              "Code": "RC_SH",
+              "Date": "first_day_month"
+            },
+            "sort": "ISIN",
+            "ascending": true,
+            "csv": true
+          },
+          "final_client": {
+            "sheets_names": [
+              "Shariah_List_01{next_month}{year}"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "ADIB",
+      "input_files": 2,
+      "filters": [
+        {
+          "function": "market_cap",
+          "args": {
+            "Market Cap": 5000000
+          }
+        },
+        {
+          "function": "issue_active_status_except_reits",
+          "args": {}
+        },
+        {
+          "function": "ticker_isin_null",
+          "args": {}
+        },
+        {
+          "function": "period_end_date_except_reits",
+          "args": {
+            "Period End Date": null
+          }
+        },
+        {
+          "function": "date_of_current_price_except_reits",
+          "args": {
+            "Date Of Current Price": null
+          }
+        },
+        {
+          "function": "passing_reits_filter",
+          "args": {}
+        }
+      ],
+      "other_functions": [
+        {
+          "function": "excluded_included_compliance",
+          "sheets_names": [
+            "Inclusion",
+            "Exclusion"
+          ],
+          "inputs": [
+            "Change Compliance",
+            "rb"
+          ]
+        }
+      ],
+      "output_files": [
+        {
+          "filename_pattern": "Saudi Universe_ADIB_{next_month_letters}_{year}",
+          "output_columns": {
+            "Compliant List": [
+              "Name",
+              "ISIN",
+              "Ticker",
+              "Sector",
+              "Market Cap"
+            ],
+            "Exclusion": [
+              "Name",
+              "ISIN",
+              "Ticker"
+            ],
+            "Inclusion": [
+              "Name",
+              "ISIN",
+              "Ticker"
+            ],
+            "defaults": {},
+            "sort": "Name",
+            "ascending": true
+          },
+          "final_client": {
+            "sheets_names": [
+              "Compliant List",
+              "Exclusion",
+              "Inclusion"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "BMK",
+      "input_files": 2,
+      "pre_processing": [],
+      "filters": [
+        {
+          "function": "issue_active_status_except_reits",
+          "args": {}
+        },
+        {
+          "function": "ticker_isin_null",
+          "args": {}
+        },
+        {
+          "function": "period_end_date_except_reits",
+          "args": {
+            "Period End Date": null
+          }
+        },
+        {
+          "function": "date_of_current_price_except_reits",
+          "args": {
+            "Date Of Current Price": null
+          }
+        },
+        {
+          "function": "passing_reits_filter",
+          "args": {}
+        }
+      ],
+      "output_files": [
+        {
+          "filename_pattern": "Saudi Universe_BMK_{year}{current_month}25",
+          "output_columns": {
+            "Compliant List": [
+              "Name",
+              "Ticker"
+            ],
+            "defaults": {},
+            "sort": "Name",
+            "ascending": true
+          },
+          "final_client": {
+            "sheets_names": [
+              "Compliant List"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Derayah ASRHC",
+      "input_files": 2,
+      "pre_processing": [],
+      "filters": [
+        {
+          "function": "market_cap",
+          "args": {
+            "Market Cap": 5000000
+          }
+        },
+        {
+          "function": "issue_active_status",
+          "args": {}
+        },
+        {
+          "function": "ticker_isin_null",
+          "args": {}
+        },
+        {
+          "function": "period_end_date",
+          "args": {
+            "Period End Date": null
+          }
+        },
+        {
+          "function": "date_of_current_price",
+          "args": {
+            "Date Of Current Price": null
+          }
+        }
+      ],
+      "output_files": [
+        {
+          "filename_pattern": "Saudi Compliant Universe_{next_month_letters} {year}",
+          "output_columns": {
+            "Delivery File": [
+              "Name",
+              "ISIN",
+              "Ticker"
+            ],
+            "defaults": {},
+            "sort": "Name",
+            "ascending": true
+          },
+          "final_client": {
+            "sheets_names": [
+              "Delivery File"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Derayah Saudi (Derayah Proposed RB)",
+      "input_files": 2,
+      "pre_processing": [],
+      "filters": [
+        {
+          "function": "market_cap",
+          "args": {
+            "Market Cap": 5000000
+          }
+        },
+        {
+          "function": "issue_active_status",
+          "args": {}
+        },
+        {
+          "function": "ticker_isin_null",
+          "args": {}
+        },
+        {
+          "function": "period_end_date",
+          "args": {
+            "Period End Date": null
+          }
+        },
+        {
+          "function": "date_of_current_price",
+          "args": {
+            "Date Of Current Price": null
+          }
+        }
+      ],
+      "output_files": [
+        {
+          "filename_pattern": "{year}{next_month}01_SaudiArabia List_Q{quarter}_Derayah",
+          "output_columns": {
+            "Compliance List": [
+              "Name",
+              "ISIN",
+              {
+                "Compliance Status": "Derraya Proposed"
+              },
+              "Ticker",
+              "Nation",
+              "Sector",
+              "Business Activities",
+              "Fiscal Period",
+              {
+                "[Derraya] Debt Ratio": "[Derraya Proposed] Debt Ratio"
+              },
+              {
+                "[Derraya] Non Permissible Income Ratio": "[Derraya Proposed] Non Permissible Income Ratio"
+              }
+            ],
+            "defaults": {},
+            "sort": "Name",
+            "ascending": true
+          },
+          "final_client": {
+            "sheets_names": [
+              "Compliance List"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Introspect Saudi",
+      "input_files": 2,
+      "pre_processing": [],
+      "filters": [
+        {
+          "function": "market_cap",
+          "args": {
+            "Market Cap": 5000000
+          }
+        },
+        {
+          "function": "issue_active_status_except_reits",
+          "args": {}
+        },
+        {
+          "function": "ticker_isin_null",
+          "args": {}
+        },
+        {
+          "function": "period_end_date_except_reits",
+          "args": {
+            "Period End Date": null
+          }
+        },
+        {
+          "function": "date_of_current_price_except_reits",
+          "args": {
+            "Date Of Current Price": null
+          }
+        }
+      ],
+      "output_files": [
+        {
+          "filename_pattern": "Introspect_IdealRatings_Saudi Compliance List_{next_month_letters}_{year}",
+          "output_columns": {
+            "{next_month_letters} Delivery": [
+              "Date",
+              "Name",
+              "ISIN",
+              "Ticker",
+              "RIC Code",
+              "Nation",
+              "Business Activities",
+              "[Introspect] NPIN Status",
+              "[Introspect] Interest-bearing Investments",
+              "[Introspect] Interest-bearing Debts",
+              "[Introspect] Non-permissible Income",
+              "",
+              "",
+              "Introspect"
+            ],
+            "defaults": {
+              " ": " ",
+              "Date": "first_day_month"
+            },
+            "sort": "Name",
+            "ascending": true
+          },
+          "final_client": {
+            "sheets_names": [
+              "{next_month_letters} Delivery"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Jadwa",
+      "input_files": 2,
+      "pre_processing": [],
+      "filters": [
+        {
+          "function": "issue_active_status_except_reits",
+          "args": {}
+        },
+        {
+          "function": "ticker_isin_null",
+          "args": {}
+        },
+        {
+          "function": "period_end_date_except_reits",
+          "args": {
+            "Period End Date": null
+          }
+        },
+        {
+          "function": "date_of_current_price_except_reits",
+          "args": {
+            "Date Of Current Price": null
+          }
+        }
+      ],
+      "output_files": [
+        {
+          "filename_pattern": "Saudi Universe_Jadwa_{next_month_letters}_2025",
+          "output_columns": {
+            "Delivery_File": [
+              "Name",
+              "Nation",
+              "Ticker"
+            ],
+            "defaults": {},
+            "sort": "Name",
+            "ascending": true
+          },
+          "final_client": {
+            "sheets_names": [
+              "Delivery_File"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Alpha Capital",
+      "input_files": 2,
+      "pre_processing": [],
+      "filters": [
+        {
+          "function": "issue_active_status_except_reits",
+          "args": {}
+        },
+        {
+          "function": "ticker_isin_null",
+          "args": {}
+        },
+        {
+          "function": "period_end_date_except_reits",
+          "args": {
+            "Period End Date": null
+          }
+        },
+        {
+          "function": "date_of_current_price_except_reits",
+          "args": {
+            "Date Of Current Price": null
+          }
+        }
+      ],
+      "output_files": [
+        {
+          "filename_pattern": "Alpha_Capital_Delivery",
+          "output_columns": {
+            "Compliant List": [
+              "Name",
+              "ISIN",
+              "Ticker"
+            ],
+            "Change Compliance": [
+              "Name",
+              "ISIN",
+              "Comment"
+            ],
+            "defaults": {
+              "Comment": " "
+            },
+            "sort": "Name",
+            "ascending": true
+          },
+          "final_client": {
+            "sheets_names": [
+              "Compliant List",
+              "Change Compliance"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Morgan Saudi",
+      "input_files": 2,
+      "pre_processing": [],
+      "filters": [
+        {
+          "function": "issue_active_status_except_reits",
+          "args": {}
+        },
+        {
+          "function": "ticker_isin_null",
+          "args": {}
+        },
+        {
+          "function": "period_end_date_except_reits",
+          "args": {
+            "Period End Date": null
+          }
+        },
+        {
+          "function": "date_of_current_price_except_reits",
+          "args": {
+            "Date Of Current Price": null
+          }
+        }
+      ],
+      "output_files": [
+        {
+          "filename_pattern": "{year}{current_month}25_Saudi Arabia List_Q{quarter}_Morgan Stanley",
+          "output_columns": {
+            "Compliant List": [
+              "Name",
+              "ISIN",
+              "Ticker"
+            ],
+            "defaults": {},
+            "sort": "Name",
+            "ascending": true
+          },
+          "final_client": {
+            "sheets_names": [
+              "Compliant List"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Ashmore Saudi",
+      "input_files": 2,
+      "pre_processing": [],
+      "filters": [
+        {
+          "function": "market_cap",
+          "args": {
+            "Market Cap": 5000000
+          }
+        },
+        {
+          "function": "issue_active_status",
+          "args": {}
+        },
+        {
+          "function": "period_end_date",
+          "args": {
+            "Period End Date": null
+          }
+        },
+        {
+          "function": "date_of_current_price",
+          "args": {
+            "Date Of Current Price": null
+          }
+        },
+        {
+          "function": "blank_identifiers",
+          "args": {}
+        }
+      ],
+      "output_files": [
+        {
+          "filename_pattern": "{year}{next_month}01_Ashmore - Saudi Universe",
+          "output_columns": {
+            "Universe": [
+              "Name",
+              "ISIN",
+              "SEDOL",
+              "Ticker"
+            ],
+            "defaults": {},
+            "sort": "Name",
+            "ascending": true,
+            "csv": false
+          },
+          "final_client": {
+            "sheets_names": [
+              "Universe"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "NBK Saudi",
+      "input_files": 2,
+      "pre_processing": [],
+      "filters": [
+        {
+          "function": "issue_active_status_except_reits",
+          "args": {}
+        },
+        {
+          "function": "ticker_isin_null",
+          "args": {}
+        },
+        {
+          "function": "period_end_date_saudireits",
+          "args": {
+            "Period End Date": null
+          }
+        },
+        {
+          "function": "date_of_current_price_saudireits",
+          "args": {
+            "Date Of Current Price": null
+          }
+        },
+        {
+          "function": "passing_reits_filter",
+          "args": {}
+        }
+      ],
+      "output_files": [
+        {
+          "filename_pattern": "Saudi Universe_NBK_{next_month_letters}_{year}",
+          "output_columns": {
+            "Saudi List": [
+              "Name",
+              "ISIN",
+              "Ticker",
+              "S&P Shariah-based"
+            ],
+            "defaults": {},
+            "sort": "Name",
+            "ascending": true,
+            "csv": false
+          },
+          "final_client": {
+            "sheets_names": [
+              "Saudi List"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "AlBilad",
+      "input_files": 2,
+      "pre_processing": [],
+      "filters": [
+        {
+          "function": "issue_active_status_except_reits",
+          "args": {}
+        },
+        {
+          "function": "ticker_null",
+          "args": {}
+        },
+        {
+          "function": "period_end_date_except_reits",
+          "args": {
+            "Period End Date": null
+          }
+        },
+        {
+          "function": "date_of_current_price_except_reits",
+          "args": {
+            "Date Of Current Price": null
+          }
+        },
+        {
+          "function": "reits_filter",
+          "args": {}
+        }
+      ],
+      "output_files": [
+        {
+          "filename_pattern": "Saudi_Compliant_List_Albilad_{next_month_letters}_{year}",
+          "output_columns": {
+            "AAOIFI": [
+              "Name",
+              "Nation",
+              "Ticker"
+            ],
+            "Albilad": [
+              "Name",
+              "Nation",
+              "Ticker"
+            ],
+            "Albilad Pure": [
+              "Name",
+              "Nation",
+              "Ticker"
+            ],
+            "Change Compliance Albilad": [
+              "Name",
+              "Ticker"
+            ],
+            "Change Compliance Albilad Pure": [
+              "Name",
+              "Ticker"
+            ],
+            "defaults": {},
+            "sort": "Name",
+            "ascending": true,
+            "csv": false
+          },
+          "final_client": {
+            "sheets_names": [
+              "AAOIFI",
+              "Albilad",
+              "Albilad Pure",
+              "Change Compliance Albilad",
+              "Change Compliance Albilad Pure"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "AlRajhi",
+      "input_files": 2,
+      "pre_processing": [],
+      "filters": [
+        {
+          "function": "issue_active_status_except_reits",
+          "args": {}
+        },
+        {
+          "function": "ticker_isin_null",
+          "args": {}
+        },
+        {
+          "function": "period_end_date_except_reits",
+          "args": {
+            "Period End Date": null
+          }
+        },
+        {
+          "function": "date_of_current_price_except_reits",
+          "args": {
+            "Date Of Current Price": null
+          }
+        }
+      ],
+      "output_files": [
+        {
+          "filename_pattern": "{year}{current_month}{last_day}_Saudi Universe_AlRajhi_Q{quarter}_{year}",
+          "output_columns": {
+            "Delivery_File": [
+              "Ticker",
+              "Nation Code",
+              "ISIN",
+              "Name",
+              "Nation",
+              "Saudi Business Sector",
+              "Currency",
+              "Year",
+              "Period",
+              "Al-Rajhi",
+              "[Al-Rajhi] Debt Ratio",
+              "[Al-Rajhi] Financial Status",
+              "[Al-Rajhi] Non Permissible Income Ratio",
+              "[Al-Rajhi] NPIN Status",
+              "[Al-Rajhi]  Preference Share",
+              "[Al-Rajhi]  Country of Incorporation",
+              "Purification Status",
+              "[Al-Rajhi] Purification (Hyb.)"
+            ],
+            "defaults": {},
+            "sort": "Name",
+            "ascending": true,
+            "csv": false
+          },
+          "final_client": {
+            "sheets_names": [
+              "Delivery_File"
+            ]
+          }
+        },
+        {
+          "filename_pattern": "Saudi Pure List_AlRajhi_Q{quarter}_{year}",
+          "output_columns": {
+            "AlRajhi Pure List": [
+              "Name",
+              "ISIN",
+              "Ticker",
+              "Nation"
+            ],
+            "defaults": {},
+            "sort": "Name",
+            "ascending": true,
+            "csv": false
+          },
+          "final_client": {
+            "sheets_names": [
+              "AlRajhi Pure List"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Saudi Fransi",
+      "input_files": 6,
+      "pre_processing": [],
+      "filters": [
+        {
+          "function": "issue_active_status_except_reits",
+          "args": {}
+        },
+        {
+          "function": "isin_null",
+          "args": {}
+        },
+        {
+          "function": "period_end_date_except_reits",
+          "args": {
+            "Period End Date": null
+          }
+        },
+        {
+          "function": "date_of_current_price_except_reits",
+          "args": {
+            "Date Of Current Price": null
+          }
+        }
+      ],
+      "output_files": [
+        {
+          "filename_pattern": "SAUDI_FRANSI_Delivery_File_Q{quarter}_{year}",
+          "output_columns": {
+            "Saudi (SAR)": [
+              "IR WID",
+              "Name",
+              "Nation",
+              "RIC Code",
+              "ISIN",
+              "Business Activities",
+              "Debt Conv",
+              "Cash and Cash Equivalents Total",
+              "Receivables Total",
+              "Cash and Short Term Inv Conv",
+              "[FransiCapital] Total NPIN (1)",
+              "Trailing 12 Months Market Cap Most Recent Statement",
+              "Income Total",
+              "[FransiCapital] Debt",
+              "[FransiCapital] Interest bearing Investments",
+              "[FransiCapital] Non permissible Income",
+              "FransiCapital",
+              "Fransi Capital Purification Div",
+              "Fiscal Period",
+              "Issue Active Status",
+              "Date Of Current Price",
+              "Period End Date"
+            ],
+            "defaults": {},
+            "sort": "Name",
+            "ascending": true,
+            "csv": false
+          },
+          "final_client": {
+            "sheets_names": [
+              "Saudi (SAR)"
+            ]
+          }
+        },
+        {
+          "filename_pattern": "SAUDI_FRANSI_US_Delivery_File_Q{quarter}_{year}",
+          "output_columns": {
+            "Saudi (USD)": [
+              "IR WID",
+              "Name",
+              "Nation",
+              "RIC Code",
+              "ISIN",
+              "Business Activities",
+              "Debt Conv",
+              "Cash and Cash Equivalents Total",
+              "Receivables Total",
+              "Cash and Short Term Inv Conv",
+              "[FransiCapital] Total NPIN (1)",
+              "Trailing 12 Months Market Cap Most Recent Statement",
+              "Income Total",
+              "[FransiCapital] Debt",
+              "[FransiCapital] Interest bearing Investments",
+              "[FransiCapital] Non permissible Income",
+              "FransiCapital",
+              "Fransi Capital Purification Div",
+              "Fiscal Period",
+              "Issue Active Status",
+              "Date Of Current Price",
+              "Period End Date"
+            ],
+            "defaults": {},
+            "sort": "Name",
+            "ascending": true,
+            "csv": false
+          },
+          "final_client": {
+            "sheets_names": [
+              "Saudi (USD)"
+            ]
+          }
+        },
+        {
+          "filename_pattern": "SAUDI_FRANSI_GCC_Delivery_File_Q{quarter}_{year}",
+          "output_columns": {
+            "GCC ex-Saudi": [
+              "IR WID",
+              "Name",
+              "Nation",
+              "RIC Code",
+              "ISIN",
+              "Business Activities",
+              "Debt Conv",
+              "Cash and Cash Equivalents Total",
+              "Receivables Total",
+              "Cash and Short Term Inv Conv",
+              "[FransiCapital] Total NPIN (1)",
+              "Trailing 12 Months Market Cap Most Recent Statement",
+              "Income Total",
+              "[FransiCapital] Debt",
+              "[FransiCapital] Interest bearing Investments",
+              "[FransiCapital] Non permissible Income",
+              "FransiCapital",
+              "Fransi Capital Purification Div",
+              "Fiscal Period",
+              "Issue Active Status",
+              "Date Of Current Price",
+              "Period End Date"
+            ],
+            "defaults": {},
+            "sort": "Name",
+            "ascending": true,
+            "csv": false
+          },
+          "final_client": {
+            "sheets_names": [
+              "GCC ex-Saudi"
+            ]
+          }
+        },
+        {
+          "filename_pattern": "Saudi_GCC_Securities_Q{quarter}_{year}",
+          "output_columns": {
+            "Saudi (SAR)": [
+              "Name",
+              "Nation",
+              "RIC Code",
+              "ISIN",
+              "Business Activities",
+              "Debt Conv",
+              "Cash and Cash Equivalents Total",
+              "Receivables Total",
+              "Cash and Short Term Inv Conv",
+              "[FransiCapital] Total NPIN (1)",
+              "Trailing 12 Months Market Cap Most Recent Statement",
+              "Income Total",
+              "[FransiCapital] Debt",
+              "[FransiCapital] Interest bearing Investments",
+              "[FransiCapital] Non permissible Income",
+              "FransiCapital",
+              "Fransi Capital Purification Div"
+            ],
+            "Saudi (USD)": [
+              "Name",
+              "Nation",
+              "RIC Code",
+              "ISIN",
+              "Business Activities",
+              "Debt Conv",
+              "Cash and Cash Equivalents Total",
+              "Receivables Total",
+              "Cash and Short Term Inv Conv",
+              "[FransiCapital] Total NPIN (1)",
+              "Trailing 12 Months Market Cap Most Recent Statement",
+              "Income Total",
+              "[FransiCapital] Debt",
+              "[FransiCapital] Interest bearing Investments",
+              "[FransiCapital] Non permissible Income",
+              "FransiCapital",
+              "Fransi Capital Purification Div"
+            ],
+            "GCC ex-Saudi": [
+              "Name",
+              "Nation",
+              "RIC Code",
+              "ISIN",
+              "Business Activities",
+              "Debt Conv",
+              "Cash and Cash Equivalents Total",
+              "Receivables Total",
+              "Cash and Short Term Inv Conv",
+              "[FransiCapital] Total NPIN (1)",
+              "Trailing 12 Months Market Cap Most Recent Statement",
+              "Income Total",
+              "[FransiCapital] Debt",
+              "[FransiCapital] Interest bearing Investments",
+              "[FransiCapital] Non permissible Income",
+              "FransiCapital",
+              "Fransi Capital Purification Div"
+            ],
+            "defaults": {},
+            "sort": "Name",
+            "ascending": true,
+            "csv": false
+          },
+          "final_client": {
+            "sheets_names": [
+              "Saudi (SAR)",
+              "Saudi (USD)",
+              "GCC ex-Saudi"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

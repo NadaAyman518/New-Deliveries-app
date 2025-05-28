@@ -1,0 +1,393 @@
+{
+  "deliveries": [
+    {
+      "name": "Alpha Capital GCC",
+      "input_files": 2,
+      "pre_processing": [],
+      "filters": [
+        {
+          "function": "issue_active_status",
+          "args": {}
+        },
+        {
+          "function": "ticker_isin_null",
+          "args": {}
+        },
+        {
+          "function": "period_end_date",
+          "args": {
+            "Period End Date": null
+          }
+        },
+        {
+          "function": "date_of_current_price",
+          "args": {
+            "Date Of Current Price": null
+          }
+        }
+      ],
+      "output_files": [
+        {
+          "filename_pattern": "Alpha Capital_GCC Ex-Saudi_Compliant List_{next_month_letters} {year}",
+          "output_columns": {
+            "Compliant List": [
+              "Name",
+              "ISIN",
+              "Ticker"
+            ],
+            "Change Compliance": [
+              "Name",
+              "ISIN",
+              "Ticker"
+            ],
+            "defaults": {},
+            "sort": "Name",
+            "ascending": true,
+            "csv": false
+          },
+          "final_client": {
+            "sheets_names": [
+              "Compliant List",
+              "Change Compliance"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "AlRayan GCC",
+      "input_files": 2,
+      "pre_processing": [],
+      "filters": [
+        {
+          "function": "issue_active_status",
+          "args": {}
+        },
+        {
+          "function": "ticker_isin_null",
+          "args": {}
+        },
+        {
+          "function": "period_end_date",
+          "args": {
+            "Period End Date": null
+          }
+        },
+        {
+          "function": "date_of_current_price",
+          "args": {
+            "Date Of Current Price": null
+          }
+        },
+        {
+          "function": "removing_reits",
+          "args": {}
+        }
+      ],
+      "output_files": [
+        {
+          "filename_pattern": "{year}{next_month}01_Al Rayan_GCC Compliance List",
+          "output_columns": {
+            "GCC Universe": [
+              "Ticker",
+              "Nation",
+              "Overall Compliance",
+              "Name",
+              "Sector",
+              "ISIN",
+              "[Al Rayan] Debt Ratio",
+              "[Al Rayan] Interest-bearing Investments Ratio",
+              "[Al Rayan] Purification Factor",
+              "[Al Rayan] Sector Status",
+              "[Al Rayan] Financials Status"
+            ],
+            "Change Compliance": [
+              "Ticker",
+              "nation",
+              "Name",
+              "Sector",
+              "ISIN",
+              "Previous",
+              "Current",
+              "Comment"
+            ],
+            "defaults": {
+              "Overall Compliance": "{Al Rayan}",
+              "[Al Rayan] Sector Status": "{[Al Rayan] NPIN Status}",
+              "Previous": "{old_Al Rayan}",
+              "Current": "{Al Rayan}"
+            },
+            "sort": "Name",
+            "ascending": true,
+            "csv": false
+          },
+          "final_client": {
+            "sheets_names": [
+              "GCC Universe",
+              "Change Compliance"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "NBK MENA",
+      "input_files": 2,
+      "pre_processing": [],
+      "filters": [
+        {
+          "function": "issue_active_status",
+          "args": {}
+        },
+        {
+          "function": "ticker_isin_null",
+          "args": {}
+        }
+      ],
+      "output_files": [
+        {
+          "filename_pattern": "MENA Compliant Universe_ASRHC_{next_month_letters} {year}",
+          "output_columns": {
+            "Compliant Universe": [
+              "Name",
+              "ISIN",
+              "Ticker"
+            ],
+            "defaults": {},
+            "sort": "Name",
+            "ascending": true,
+            "csv": false
+          },
+          "final_client": {
+            "sheets_names": [
+              "Compliant Universe"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "AlRajhi GCC",
+      "input_files": 2,
+      "pre_processing": [],
+      "filters": [
+        {
+          "function": "issue_active_status",
+          "args": {}
+        },
+        {
+          "function": "ticker_isin_null",
+          "args": {}
+        },
+        {
+          "function": "period_end_date",
+          "args": {
+            "Period End Date": null
+          }
+        },
+        {
+          "function": "date_of_current_price",
+          "args": {
+            "Date Of Current Price": null
+          }
+        }
+      ],
+      "output_files": [
+        {
+          "filename_pattern": "GCC_Universe_Q{last_quarter}_{year}",
+          "output_columns": {
+            "Compliance": [
+              "Ticker",
+              "ISIN",
+              "Name",
+              "Nation",
+              "Sector",
+              "Fiscal Period",
+              "Al-Rajhi",
+              "[Al-Rajhi] Debt Ratio",
+              "[Al-Rajhi] Financial Status",
+              "[Al-Rajhi] Non Permissible Income Ratio",
+              "[Al-Rajhi] NPIN Status",
+              "[Al-Rajhi]  Preference Share",
+              "[Al-Rajhi]  Country of Incorporation",
+              "Al Rajhi Business Activity",
+              "Al Rajhi Brokerage Alternative"
+            ],
+            "Change Compliance": [
+              "Ticker",
+              "ISIN",
+              "Name",
+              "Nation",
+              "Sector",
+              "Fiscal Period",
+              "Al-Rajhi",
+              "Previous",
+              "Comment"
+            ],
+            "defaults": {
+              "Previous": "old_ Al-Rajhi"
+            },
+            "sort": "Name",
+            "ascending": true,
+            "csv": false
+          },
+          "final_client": {
+            "sheets_names": [
+              "Compliance",
+              "Change Compliance"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "AlBilad GCC",
+      "input_files": 2,
+      "pre_processing": [],
+      "filters": [
+        {
+          "function": "issue_active_status",
+          "args": {}
+        },
+        {
+          "function": "ticker_isin_null",
+          "args": {}
+        },
+        {
+          "function": "period_end_date",
+          "args": {
+            "Period End Date": null
+          }
+        },
+        {
+          "function": "date_of_current_price",
+          "args": {
+            "Date Of Current Price": null
+          }
+        }
+      ],
+      "output_files": [
+        {
+          "filename_pattern": "GCC_Universe_Albilad_{year}{next_month}01",
+          "output_columns": {
+            "Albilad-Albilad Old": [
+              "Name",
+              "Nation",
+              "ISIN",
+              "Ticker",
+              "Purification status",
+              "Fiscal Period",
+              "Albilad",
+              "Albilad Old Methodology",
+              "[Albilad] Non-permissible Income",
+              "[Albilad] Interest-bearing Debts",
+              "[Albilad] Interest-bearing Investments",
+              "[Albilad] Purification (Hyb.)",
+              "[Albilad Old Methodology] Non-permissible Income",
+              "[Albilad Old Methodology] Interest-bearing Debts",
+              "[Albilad Old Methodology] Interest-bearing Investments",
+              "[Albilad Old Methodology] Purification (Hyb.)",
+              "Currency Code"
+            ],
+            "Max (Assets-Market Cap)": [
+              "Name",
+              "Nation",
+              "ISIN",
+              "Ticker",
+              "Albilad (A/MC)",
+              "Albilad",
+              "[Albilad (A/MC)] Non-permissible Income",
+              "[Albilad (A/MC)] Interest-bearing Debts",
+              "[Albilad (A/MC)] Interest-bearing Investments",
+              "[Albilad (A/MC)] Purification (Hyb.)"
+            ],
+            "defaults": {},
+            "sort": "Name",
+            "ascending": true,
+            "csv": false
+          },
+          "final_client": {
+            "sheets_names": [
+              "Albilad-Albilad Old",
+              "Max (Assets-Market Cap)"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Introspect MENA",
+      "input_files": 2,
+      "pre_processing": [],
+      "filters": [
+        {
+          "function": "market_cap",
+          "args": {
+            "Market Cap": 5000000
+          }
+        },
+        {
+          "function": "issue_active_status",
+          "args": {}
+        },
+        {
+          "function": "ticker_isin_null",
+          "args": {}
+        },
+        {
+          "function": "period_end_date",
+          "args": {
+            "Period End Date": null
+          }
+        },
+        {
+          "function": "date_of_current_price",
+          "args": {
+            "Date Of Current Price": null
+          }
+        }
+      ],
+      "output_files": [
+        {
+          "filename_pattern": "Introspect_IdealRatings_Compliance List_{next_month_letters} {year}",
+          "output_columns": {
+            "Compliance": [
+              "Date",
+              "Name",
+              "ISIN",
+              "Ticker",
+              "RIC Code",
+              "Nation",
+              "Business Activities",
+              "[Introspect] NPIN Status",
+              "[Introspect] Interest-bearing Investments",
+              "[Introspect] Interest-bearing Debts",
+              "",
+              "",
+              "Introspect"
+            ],
+            "Change Compliance": [
+              "Name",
+              "ISIN",
+              "Ticker",
+              "Comment"
+            ],
+            "defaults": {
+              "Date": "first_day_month",
+              " ": " "
+            },
+            "sort": "Name",
+            "ascending": true,
+            "csv": false
+          },
+          "final_client": {
+            "sheets_names": [
+              "Compliance",
+              "Change Compliance"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
