@@ -8,3 +8,4 @@ pandas==2.2.3
 python_dateutil==2.9.0.post0
 streamlit_authenticator==0.4.2
 XlsxWriter==3.2.2
+python-bidi==0.6.0
