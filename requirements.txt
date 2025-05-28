@@ -6,7 +6,5 @@ deep_translator==1.11.4
 numpy==2.2.6
 pandas==2.2.3
 python_dateutil==2.9.0.post0
-streamlit==1.37.1
-streamlit==1.45.0
 streamlit_authenticator==0.4.2
 XlsxWriter==3.2.2
