@@ -46,7 +46,7 @@ def inject_session_dates(filters):
 # Load delivery configuration
 def load_config():
     try:
-        with open('deliveries_config2.json', 'r') as f:
+        with open('/tmp/config/deliveries_config2.json', 'r') as f:
             return json.load(f)
     except FileNotFoundError:
         st.error("Configuration file not found. Please ensure deliveries_config3.json is in the root directory.")
