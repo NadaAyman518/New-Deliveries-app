@@ -202,6 +202,7 @@ def main_logic():
         # new_df = read_new_function(extraction)
         # new_df.fillna("", inplace=True)
         # new_df.columns = new_df.columns.str.strip()
+        extraction.seek(0)
         new_df = process_file(extraction)
         date_current_price = Finders.date_current_price_finder(new_df)
         new_df = new_df.rename(columns={date_current_price: 'Date Of Current Price'})
