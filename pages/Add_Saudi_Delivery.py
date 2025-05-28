@@ -132,6 +132,7 @@ def save_config(config: Dict) -> bool:
     except Exception as e:
         logger.error(f"Failed to save configuration: {str(e)}")
         return False
+
 # Validation Functions
 def validate_delivery_name(name: str) -> bool:
     """Validate delivery name format"""
@@ -598,11 +599,14 @@ def render_output_config(output_index: int) -> Dict:
                 value="ISIN, SEDOL, RIC Code, Weight, Date, Code",
                 key=f"sheet_columns_{output_index}"
             )
+            sort_col, sort_asc = get_sorting_ui(output_index)
 
             config["output_columns"] = {
                 sheet_name: [col.strip() for col in sheet_columns.split(",")],
                 "defaults": get_default_values_ui(output_index),
-                "sort": get_sorting_ui(output_index),
+                # "sort": get_sorting_ui(output_index),
+                "sort": sort_col,  # Now just the column name as string
+                "ascending": sort_asc,
                 "csv": config["csv_output"]
             }
             config["final_client"] = {"sheets_names": [sheet_name]}
@@ -660,20 +664,35 @@ def get_default_values_ui(output_index: int) -> Dict:
         return {}
 
 
-def get_sorting_ui(output_index: int) -> Dict:
+# def get_sorting_ui(output_index: int) -> Dict:
+#     """Render UI for sorting configuration"""
+#     st.markdown("#### Sorting")
+#     sort_col = st.text_input(
+#         "Sort by column",
+#         value="Name",
+#         key=f"sort_col_{output_index}"
+#     )
+#     sort_asc = st.checkbox(
+#         "Sort ascending",
+#         value=True,
+#         key=f"sort_asc_{output_index}"
+#     )
+#     return {"column": sort_col, "ascending": sort_asc}
+
+def get_sorting_ui(output_index: int):
     """Render UI for sorting configuration"""
     st.markdown("#### Sorting")
     sort_col = st.text_input(
         "Sort by column",
-        value="Name",
+        value="ISIN",  # Default to ISIN as requested
         key=f"sort_col_{output_index}"
     )
     sort_asc = st.checkbox(
         "Sort ascending",
-        value=True,
+        value=True,  # Default to ascending
         key=f"sort_asc_{output_index}"
     )
-    return {"column": sort_col, "ascending": sort_asc}
+    return sort_col, sort_asc  # Now returns a tuple instead of dict
 
 
 def add_delivery_interface():
