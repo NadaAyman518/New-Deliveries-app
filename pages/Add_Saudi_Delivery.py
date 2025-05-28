@@ -64,10 +64,20 @@ def load_config() -> Dict:
 
 def save_config(config: Dict) -> bool:
     """Save configuration to appropriate backend"""
+    st.write(f"Debug: USE_S3={USE_S3}, S3_BUCKET={S3_BUCKET}")  # Debug line
     try:
         if USE_S3:
-            import boto3
+            st.write("Attempting S3 save...")  # Debug line
             s3 = boto3.client('s3')
+
+            # Verify bucket exists and is accessible
+            try:
+                s3.head_bucket(Bucket=S3_BUCKET)
+                st.write("Bucket access verified")  # Debug line
+            except ClientError as e:
+                error_code = e.response['Error']['Code']
+                st.error(f"S3 Bucket Error: {error_code}")
+                return False
 
             # Write to temporary location first
             temp_key = f"{CONFIG_FILE}.tmp"
