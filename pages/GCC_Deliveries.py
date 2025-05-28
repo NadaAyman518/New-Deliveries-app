@@ -20,10 +20,15 @@ authenticator.logout(key="Logout", location="sidebar")
 
 # Clear session state
 def clear_results():
-    keys_to_delete = ['new_df', 'final_old_df', 'raw_old_df', 'albilad_old_df', 'amc_old_df']
-    for key in keys_to_delete:
-        if key in st.session_state:
-            del st.session_state[key]
+    # keys_to_delete = ['new_df', 'final_old_df', 'raw_old_df', 'albilad_old_df', 'amc_old_df']
+    # for key in keys_to_delete:
+    #     if key in st.session_state:
+    #         del st.session_state[key]
+   if "extraction" in st.session_state or "old_file" in st.session_state:
+        keys_to_delete = ['new_df', 'final_old_df', 'raw_old_df']
+        for key in keys_to_delete:
+            if key in st.session_state:
+                del st.session_state[key]
 
 def inject_session_dates(filters):
     for f in filters:
